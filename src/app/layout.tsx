@@ -1,7 +1,8 @@
-import { Navbar } from "@/components";
+import { AuthModal, Navbar } from "@/components";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +17,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body className={inter.className}>
-        <Navbar />
-        {children}
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='dark'
+          storageKey='pinterest-theme'
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+          <AuthModal />
+        </ThemeProvider>
       </body>
     </html>
   );

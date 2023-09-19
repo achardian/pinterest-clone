@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserCircle2 } from "lucide-react";
 
-import { DropdownMenu, SearchBar } from ".";
+import { DropdownMenu, SearchBar, ThemeToggle } from ".";
 
 const Navbar = () => {
   const links = [
@@ -23,9 +23,9 @@ const Navbar = () => {
   const user = false;
 
   return (
-    <nav className='flex items-center py-2 px-5'>
+    <nav className='flex items-center gap-2 py-2 px-5'>
       {/* logo */}
-      <div className='p-3 rounded-full hover:bg-gray-50'>
+      <div className='p-3 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800'>
         <Image
           src='/pinterest-logo.svg'
           alt='pinterest logo'
@@ -35,16 +35,16 @@ const Navbar = () => {
         />
       </div>
       {/* links: home, create */}
-      <div className='flex items-center gap-2'>
+      <div className='hidden lg:flex items-center gap-2'>
         {links.map((link) => (
           <Link
             key={link.name}
             href={link.path}
             className={`${
               link.path === pathName
-                ? "bg-black text-white font-semibold rounded-full"
+                ? "bg-black dark:bg-gray-800 text-white rounded-full"
                 : ""
-            } py-2 px-5`}
+            } font-semibold py-2 px-5`}
           >
             {link.name}
           </Link>
@@ -52,6 +52,7 @@ const Navbar = () => {
       </div>
       {/* search */}
       <SearchBar />
+      <ThemeToggle />
       {user ? (
         <div>
           {/* profile */}
@@ -62,9 +63,12 @@ const Navbar = () => {
           <DropdownMenu />
         </div>
       ) : (
-        <button className='py-2 px-6 rounded-full bg-red-600 hover:bg-red-500 text-white'>
+        <Link
+          href='/?dialog=y'
+          className='py-2 px-6 rounded-full bg-red-600 hover:bg-red-500 text-white'
+        >
           Sign In
-        </button>
+        </Link>
       )}
     </nav>
   );
