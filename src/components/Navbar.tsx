@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { UserCircle2 } from "lucide-react";
 
 import { DropdownMenu, SearchBar, ThemeToggle } from ".";
 
@@ -22,12 +21,14 @@ const Navbar = () => {
 
   const pathName = usePathname();
   const { data: session } = useSession();
-  console.log(session);
 
   return (
-    <nav className='flex items-center gap-2 py-2 px-5'>
+    <nav className='flex items-center gap-2 py-2 px-5 sticky top-0 bg-white dark:bg-[#040D12]'>
       {/* logo */}
-      <div className='p-3 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800'>
+      <Link
+        href='/'
+        className='p-3 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800'
+      >
         <Image
           src='/pinterest-logo.svg'
           alt='pinterest logo'
@@ -35,7 +36,7 @@ const Navbar = () => {
           height={25}
           className='rounded-full'
         />
-      </div>
+      </Link>
       {/* links: home, create */}
       <div className='hidden lg:flex items-center gap-2'>
         {links.map((link) => (
