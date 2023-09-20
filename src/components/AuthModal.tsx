@@ -5,12 +5,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 const AuthModal = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const dialogParams = searchParams.get("dialog");
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+
+  const handleSignIn = () => {
+    signIn("google", { callbackUrl: "/" });
+  };
 
   useEffect(() => {
     if (dialogParams === "y") {
@@ -36,7 +41,10 @@ const AuthModal = () => {
         />
         <h1 className='text-2xl font-bold'>Welcome to Pinterest</h1>
         <p className='italic'>Discover new ideas to try</p>
-        <button className='flex items-center justify-center gap-3 w-full py-2 border border-gray-200 dark:border-gray-900 rounded-full mt-5'>
+        <button
+          onClick={handleSignIn}
+          className='flex items-center justify-center gap-3 w-full py-2 border border-gray-200 dark:border-gray-900 rounded-full mt-5'
+        >
           Continue With Google
           <Image
             src='/google-icon.svg'

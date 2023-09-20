@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { UserCircle2 } from "lucide-react";
 
@@ -20,7 +21,8 @@ const Navbar = () => {
   ];
 
   const pathName = usePathname();
-  const user = false;
+  const { data: session } = useSession();
+  console.log(session);
 
   return (
     <nav className='flex items-center gap-2 py-2 px-5'>
@@ -53,11 +55,17 @@ const Navbar = () => {
       {/* search */}
       <SearchBar />
       <ThemeToggle />
-      {user ? (
-        <div>
+      {session?.user ? (
+        <div className='flex'>
           {/* profile */}
-          <div className='p-3 hover:bg-gray-50 rounded-full'>
-            <UserCircle2 height={25} width={25} />
+          <div className='p-2 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full'>
+            <Image
+              src={session.user.image as string}
+              alt='user-img'
+              width={25}
+              height={25}
+              className='rounded-full'
+            />
           </div>
           {/* dropdown menu */}
           <DropdownMenu />

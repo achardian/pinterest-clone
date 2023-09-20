@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import AuthProvider from "@/providers/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,16 +20,18 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'
-          storageKey='pinterest-theme'
-          disableTransitionOnChange
-        >
-          <Navbar />
-          {children}
-          <AuthModal />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='dark'
+            storageKey='pinterest-theme'
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+            <AuthModal />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
