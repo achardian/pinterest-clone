@@ -1,13 +1,37 @@
 "use client";
 
-import { UploadCloud } from "lucide-react";
+import getImageHeight from "@/lib/get-image-height";
+import { UploadCloud, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRef } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 const PinBuilder = () => {
   const { data: session } = useSession();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [imgUrl, setImgUrl] = useState("");
+  const [imgHeight, setImgHeight] = useState(0);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const imgFile = e.target.files?.item(0);
+    const fileReader = new FileReader();
+    if (imgFile) {
+      fileReader.readAsDataURL(imgFile);
+      fileReader.onload = (ev) => {
+        setImgUrl(ev.target?.result as string);
+      };
+      setFile(imgFile);
+    }
+  };
+
+  useEffect(() => {
+    if (imgUrl) {
+      getImageHeight(imgUrl, setImgHeight);
+    }
+  }, [imgUrl]);
+
+  console.log(imgHeight);
 
   return (
     <div className='w-full h-screen bg-gray-200 dark:bg-gray-950 flex items-center justify-center'>
@@ -15,20 +39,48 @@ const PinBuilder = () => {
         <div className='flex-1'>
           <div className='w-full h-[450px] bg-gray-100 dark:bg-gray-800 p-3 rounded-lg'>
             <div className='w-full h-full rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-900 flex items-center justify-center'>
-              <button className='flex flex-col justify-center items-center text-gray-500 w-full h-full'>
-                <UploadCloud />
-                Click to upload
-              </button>
+              {imgUrl ? (
+                <div className='relative w-full h-full'>
+                  <Image
+                    src={imgUrl}
+                    alt='pin-img'
+                    fill
+                    className='object-contain'
+                  />
+                  <button
+                    onClick={() => setImgUrl("")}
+                    className='absolute top-2 right-2 p-2 rounded-full text-gray-400 bg-gray-200 dark:bg-gray-900'
+                  >
+                    <X />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className='flex flex-col justify-center items-center text-gray-500 w-full h-full'
+                >
+                  <UploadCloud />
+                  Click to upload
+                </button>
+              )}
             </div>
           </div>
           <input
             type='url'
+            onChange={(e) => setImgUrl(e.target.value)}
+            value={imgUrl}
             placeholder='add image url'
             className='mt-3 w-full rounded-full outline-none border-none py-2 px-3 bg-gray-100 dark:bg-gray-800'
           />
         </div>
         <form className='w-full lg:w-3/5 flex flex-col lg:pr-5'>
-          <input type='file' hidden ref={fileInputRef} accept='image/*' />
+          <input
+            type='file'
+            onChange={handleFileChange}
+            hidden
+            ref={fileInputRef}
+            accept='image/*'
+          />
           <input
             type='text'
             placeholder='Add title'
@@ -50,7 +102,7 @@ const PinBuilder = () => {
             className='create-input text-basis p-2 lg:mt-5'
           />
           <input
-            type='text'
+            type='url'
             placeholder='Add destination link'
             className='create-input text-basis p-2 lg:mt-auto'
           />
