@@ -1,10 +1,19 @@
 "use client";
 
+import { Loader } from "@/components";
+import cloudinaryUpload from "@/lib/cloudinary-upload";
 import getImageHeight from "@/lib/get-image-height";
 import { UploadCloud, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import toast from "react-hot-toast";
 
 const PinBuilder = () => {
   const { data: session } = useSession();
@@ -12,6 +21,14 @@ const PinBuilder = () => {
   const [file, setFile] = useState<File | null>(null);
   const [imgUrl, setImgUrl] = useState("");
   const [imgHeight, setImgHeight] = useState(0);
+  const [pinData, setPinData] = useState({
+    title: "",
+    description: "",
+    destination: "",
+  });
+  const [tags, setTags] = useState<string[]>([]);
+  const [tag, setTag] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const imgFile = e.target.files?.item(0);
@@ -22,6 +39,42 @@ const PinBuilder = () => {
         setImgUrl(ev.target?.result as string);
       };
       setFile(imgFile);
+    }
+  };
+
+  const handlePinDataChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPinData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      if (pinData.title && pinData.description && imgUrl) {
+        const imageUrl = file ? await cloudinaryUpload(file) : imgUrl;
+        const res = await fetch("/api/pin", {
+          method: "POST",
+          body: JSON.stringify({
+            ...pinData,
+            tags,
+            imageUrl,
+            imageHeight: imgHeight,
+            userId: session?.user.id,
+          }),
+        });
+
+        const data = await res.json();
+        toast.success(data);
+      } else {
+        toast.error("Make sure you fill all fields!");
+      }
+    } catch (error) {
+      toast.error("Something went Wrong, failed to create pin!");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,7 +126,10 @@ const PinBuilder = () => {
             className='mt-3 w-full rounded-full outline-none border-none py-2 px-3 bg-gray-100 dark:bg-gray-800'
           />
         </div>
-        <form className='w-full lg:w-3/5 flex flex-col lg:pr-5'>
+        <form
+          onSubmit={handleSubmit}
+          className='w-full lg:w-3/5 flex flex-col lg:pr-5'
+        >
           <input
             type='file'
             onChange={handleFileChange}
@@ -85,6 +141,9 @@ const PinBuilder = () => {
             type='text'
             placeholder='Add title'
             className='create-input text-3xl font-bold p-2 lg:mt-5'
+            name='title'
+            onChange={handlePinDataChange}
+            value={pinData.title}
           />
           <div className='flex items-center gap-3 my-10 px-3'>
             <Image
@@ -99,14 +158,56 @@ const PinBuilder = () => {
           <input
             type='text'
             placeholder='Tell people what your pin is about'
-            className='create-input text-basis p-2 lg:mt-5'
+            className='create-input text-basis p-2'
+            name='description'
+            onChange={handlePinDataChange}
+            value={pinData.description}
           />
+          <div className='mt-10'>
+            <div className='flex gap-2 items-center'>
+              {tags.map((tag) => (
+                <div className='flex text-sm items-center gap-2 py-1 px-3 rounded-full bg-red-400'>
+                  {tag}
+                  <button
+                    onClick={() =>
+                      setTags(tags.filter((oldTag) => oldTag !== tag))
+                    }
+                    className=''
+                  >
+                    <X />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <input
+              type='text'
+              onChange={(e) => setTag(e.target.value)}
+              value={tag}
+              placeholder='Add tag'
+              className='create-input mt-2'
+            />
+            <button
+              type='button'
+              className='mt-3 bg-red-600 hover:bg-red-500 rounded-full px-3 py-1'
+              onClick={() => setTags((prevTags) => [...prevTags, tag])}
+            >
+              Add
+            </button>
+          </div>
           <input
             type='url'
             placeholder='Add destination link'
             className='create-input text-basis p-2 lg:mt-auto'
+            name='destination'
+            onChange={handlePinDataChange}
+            value={pinData.destination}
           />
-          <button className='px-5 py-2 mt-3 ml-auto bg-red-600 hover:bg-red-500 text-white rounded-full'>
+          <button type='reset' hidden></button>
+          <button
+            disabled={isLoading}
+            className='px-5 py-2 mt-3 ml-auto disabled:bg-red-400 bg-red-600 hover:bg-red-500 text-white rounded-full flex items-center gap-2'
+          >
+            {isLoading && <Loader />}
             Publish
           </button>
         </form>

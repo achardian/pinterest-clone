@@ -62,6 +62,8 @@ model Pin {
     description     String
     destination     String?
     tags            String[]
+    imageUrl        String
+    imageHeight     Int
     userId          String @db.ObjectId
     createdAt       DateTime @default(now())
     likeIds         String[]    @db.ObjectId
