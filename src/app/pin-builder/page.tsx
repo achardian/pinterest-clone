@@ -2,7 +2,7 @@
 
 import { Loader } from "@/components";
 import cloudinaryUpload from "@/lib/cloudinary-upload";
-import getImageHeight from "@/lib/get-image-height";
+import getImageSize from "@/lib/get-image-size";
 import { UploadCloud, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -21,6 +21,7 @@ const PinBuilder = () => {
   const [file, setFile] = useState<File | null>(null);
   const [imgUrl, setImgUrl] = useState("");
   const [imgHeight, setImgHeight] = useState(0);
+  const [imgWidth, setImgWidth] = useState(0);
   const [pinData, setPinData] = useState({
     title: "",
     description: "",
@@ -62,6 +63,7 @@ const PinBuilder = () => {
             tags,
             imageUrl,
             imageHeight: imgHeight,
+            imageWidth: imgWidth,
             userId: session?.user.id,
           }),
         });
@@ -80,7 +82,7 @@ const PinBuilder = () => {
 
   useEffect(() => {
     if (imgUrl) {
-      getImageHeight(imgUrl, setImgHeight);
+      getImageSize(imgUrl, setImgHeight, setImgWidth);
     }
   }, [imgUrl]);
 
@@ -166,7 +168,7 @@ const PinBuilder = () => {
           <div className='mt-10'>
             <div className='flex gap-2 items-center'>
               {tags.map((tag) => (
-                <div className='flex text-sm items-center gap-2 py-1 px-3 rounded-full bg-red-400'>
+                <div className='flex text-sm items-center gap-2 py-1 px-3 rounded-full text-white bg-red-400'>
                   {tag}
                   <button
                     onClick={() =>
@@ -188,7 +190,7 @@ const PinBuilder = () => {
             />
             <button
               type='button'
-              className='mt-3 bg-red-600 hover:bg-red-500 rounded-full px-3 py-1'
+              className='mt-3 text-white bg-red-600 hover:bg-red-500 rounded-full px-3 py-1'
               onClick={() => setTags((prevTags) => [...prevTags, tag])}
             >
               Add

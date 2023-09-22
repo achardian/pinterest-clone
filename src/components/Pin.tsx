@@ -4,11 +4,11 @@ import Image from "next/image";
 const Pin = ({ pin }: { pin: Pin }) => {
   return (
     <div className='relative rounded-md overflow-clip'>
-      <div></div>
+      <div className='absolute bg-gray-100 dark:bg-gray-900 inset-0 z-[-1]'></div>
       <Image
         src={pin.imageUrl}
         alt='pin-img'
-        width={400}
+        width={pin.imageWidth}
         height={pin.imageHeight}
         className='object-cover'
       />

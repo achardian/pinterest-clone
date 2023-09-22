@@ -12,9 +12,7 @@ const Home = async () => {
 
   return (
     <div className='columns-2 gap-8 space-y-5 md:columns-3 lg:columns-4 px-5 mt-3'>
-      {pins.map((pin) => (
-        <PinComponent pin={pin} />
-      ))}
+      {pins && pins.map((pin) => <PinComponent key={pin.id} pin={pin} />)}
     </div>
   );
 };

@@ -9,6 +9,7 @@ export const POST = async (req: Request) => {
     tags,
     imageUrl,
     imageHeight,
+    imageWidth,
     userId,
   } = await req.json();
 
@@ -21,6 +22,7 @@ export const POST = async (req: Request) => {
         tags,
         imageUrl,
         imageHeight,
+        imageWidth,
         userId,
       },
     });
