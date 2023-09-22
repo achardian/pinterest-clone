@@ -1,5 +1,22 @@
-const Home = () => {
-  return <div>home</div>;
+import { Pin as PinComponent } from "@/components";
+import fetchData from "@/lib/fetch-data";
+import { Pin } from "@prisma/client";
+
+const getPins = async () => {
+  const data = await fetchData("/pins", "GET");
+  return data;
+};
+
+const Home = async () => {
+  const pins: Pin[] = await getPins();
+
+  return (
+    <div className='columns-2 gap-8 space-y-5 md:columns-3 lg:columns-4 px-5 mt-3'>
+      {pins.map((pin) => (
+        <PinComponent pin={pin} />
+      ))}
+    </div>
+  );
 };
 
 export default Home;
