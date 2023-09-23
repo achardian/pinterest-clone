@@ -7,6 +7,7 @@ import Loader from "./Loader";
 import Pin from "./Pin";
 import SaveBtn from "./SaveBtn";
 import DeleteBtn from "./DeleteBtn";
+import CommentForm from "./CommentForm";
 
 export {
   Navbar,
@@ -18,4 +19,5 @@ export {
   Pin,
   SaveBtn,
   DeleteBtn,
+  CommentForm,
 };
