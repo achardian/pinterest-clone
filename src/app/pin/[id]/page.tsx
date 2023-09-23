@@ -1,6 +1,7 @@
-import { CommentForm } from "@/components";
+import { ChevronBtn, Comment, CommentForm } from "@/components";
 import fetchData from "@/lib/fetch-data";
 import { PinData } from "@/types";
+import { ChevronUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -50,7 +51,20 @@ const PinDetail = async ({ params }: { params: { id: string } }) => {
             />
             <h2>{pin.user.name}</h2>
           </Link>
-          <CommentForm />
+          <div className='px-5 mt-4'>
+            <div className='flex items-center gap-2'>
+              <h1>{comments.length > 1 ? "Comments" : "Comment"}</h1>
+              {comments.length > 0 && (
+                <ChevronBtn commentsLength={comments.length} />
+              )}
+            </div>
+            <div>
+              {comments.length === 0 && <small>There is no comment yet!</small>}
+              {comments.length > 0 &&
+                comments.map((comment) => <Comment comment={comment} />)}
+            </div>
+          </div>
+          <CommentForm pinId={pin.id} />
         </div>
       </div>
     </div>

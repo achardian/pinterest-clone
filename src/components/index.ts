@@ -7,7 +7,9 @@ import Loader from "./Loader";
 import Pin from "./Pin";
 import SaveBtn from "./SaveBtn";
 import DeleteBtn from "./DeleteBtn";
+import ChevronBtn from "./ChevronBtn";
 import CommentForm from "./CommentForm";
+import Comment from "./Comment";
 
 export {
   Navbar,
@@ -19,5 +21,7 @@ export {
   Pin,
   SaveBtn,
   DeleteBtn,
+  ChevronBtn,
   CommentForm,
+  Comment,
 };
