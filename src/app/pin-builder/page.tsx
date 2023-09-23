@@ -80,17 +80,18 @@ const PinBuilder = () => {
     }
   };
 
+  if (!session?.user) {
+  }
+
   useEffect(() => {
     if (imgUrl) {
       getImageSize(imgUrl, setImgHeight, setImgWidth);
     }
   }, [imgUrl]);
 
-  console.log(imgHeight);
-
   return (
     <div className='w-full h-screen bg-gray-200 dark:bg-gray-950 flex items-center justify-center'>
-      <div className='w-full lg:w-3/5 p-5 bg-white dark:bg-gray-900 rounded-lg flex flex-col lg:flex-row gap-5'>
+      <div className='w-full h-fit lg:w-3/5 p-5 bg-white dark:bg-gray-900 rounded-lg flex flex-col lg:flex-row gap-5'>
         <div className='flex-1'>
           <div className='w-full h-[450px] bg-gray-100 dark:bg-gray-800 p-3 rounded-lg'>
             <div className='w-full h-full rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-900 flex items-center justify-center'>
@@ -166,7 +167,7 @@ const PinBuilder = () => {
             value={pinData.description}
           />
           <div className='mt-10'>
-            <div className='flex gap-2 items-center'>
+            <div className='flex flex-wrap gap-2 items-center'>
               {tags.map((tag) => (
                 <div className='flex text-sm items-center gap-2 py-1 px-3 rounded-full text-white bg-red-400'>
                   {tag}

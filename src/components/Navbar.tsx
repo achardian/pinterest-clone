@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import { DropdownMenu, SearchBar, ThemeToggle } from ".";
 
 const Navbar = () => {
+  const { data: session } = useSession();
+  const pathName = usePathname();
   const links = [
     {
       name: "Home",
@@ -15,12 +17,9 @@ const Navbar = () => {
     },
     {
       name: "Create",
-      path: "/pin-builder",
+      path: session?.user ? "/pin-builder" : "/?dialog=y",
     },
   ];
-
-  const pathName = usePathname();
-  const { data: session } = useSession();
 
   return (
     <nav className='flex items-center gap-2 py-2 px-5 sticky top-0 z-50 bg-white dark:bg-[#040D12]'>
