@@ -1,4 +1,4 @@
-import { CommentForm, CommentsList } from "@/components";
+import { CommentForm, CommentsList, SaveBtn } from "@/components";
 import fetchData from "@/lib/fetch-data";
 import { PinData } from "@/types";
 import Image from "next/image";
@@ -24,6 +24,9 @@ const PinDetail = async ({ params }: { params: { id: string } }) => {
           />
         </div>
         <div className='relative flex-1 pt-2 lg:pt-8 flex flex-col gap-3'>
+          <div className='ml-auto px-5'>
+            <SaveBtn />
+          </div>
           <h1 className='text-2xl lg:text-3xl font-bold px-5'>{pin.title}</h1>
           <p className='px-5'>{pin.description}</p>
           <div className='flex items-center gap-3 flex-wrap mt-3 px-5'>
@@ -51,7 +54,7 @@ const PinDetail = async ({ params }: { params: { id: string } }) => {
             <h2>{pin.user.name}</h2>
           </Link>
           <CommentsList comments={comments} />
-          <CommentForm pinId={pin.id} />
+          <CommentForm pinId={pin.id} likeIds={pin.likeIds} />
         </div>
       </div>
     </div>

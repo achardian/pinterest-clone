@@ -8,11 +8,18 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import useOpenCommentStore from "@/store/open-comment-store";
 
-const CommentForm = ({ pinId }: { pinId: string }) => {
+const CommentForm = ({
+  pinId,
+  likeIds,
+}: {
+  pinId: string;
+  likeIds: string[];
+}) => {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
   const { setIsOpen } = useOpenCommentStore();
   const router = useRouter();
+  const isLiked = likeIds.includes(session?.user.id as string);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -32,6 +39,19 @@ const CommentForm = ({ pinId }: { pinId: string }) => {
     }
   };
 
+  const handleLike = async () => {
+    try {
+      const res = await fetch("/api/pin/favorites", {
+        method: isLiked ? "DELETE" : "POST",
+        body: JSON.stringify({ pinId, userId: session?.user.id }),
+      });
+
+      router.refresh();
+    } catch (error) {
+      toast.error("Failed to like this pin!");
+    }
+  };
+
   if (!session?.user) return null;
 
   return (
@@ -41,8 +61,18 @@ const CommentForm = ({ pinId }: { pinId: string }) => {
     >
       <div className='mb-3 flex justify-between'>
         <h3>What's your thought?</h3>
-        <button className='text-red-600'>
-          <Heart />
+        <button
+          type='button'
+          onClick={handleLike}
+          className='text-red-600 flex items-center gap-2'
+        >
+          {likeIds.length > 0 && (
+            <small className='text-black dark:text-white'>
+              {likeIds.length}
+            </small>
+          )}
+
+          <Heart fill={isLiked ? "#C51605" : "transparent"} />
         </button>
       </div>
       <div className='flex items-center gap-2'>
