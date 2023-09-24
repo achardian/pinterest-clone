@@ -1,11 +1,17 @@
 "use client";
 
+import useOpenCommentStore from "@/store/open-comment-store";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-const ChevronBtn = ({ commentsLength }: { commentsLength: number }) => {
+const ChevronBtn = () => {
+  const { isOpen, setIsOpen } = useOpenCommentStore();
+
   return (
-    <button className='p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full'>
-      <ChevronDown />
+    <button
+      onClick={() => setIsOpen(isOpen ? false : true)}
+      className='p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full'
+    >
+      {isOpen ? <ChevronUp /> : <ChevronDown />}
     </button>
   );
 };

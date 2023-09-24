@@ -6,10 +6,12 @@ import { Heart } from "lucide-react";
 import { SyntheticEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import useOpenCommentStore from "@/store/open-comment-store";
 
 const CommentForm = ({ pinId }: { pinId: string }) => {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
+  const { setIsOpen } = useOpenCommentStore();
   const router = useRouter();
 
   const handleSubmit = async (e: SyntheticEvent) => {
@@ -23,6 +25,7 @@ const CommentForm = ({ pinId }: { pinId: string }) => {
 
       const data = await res.json();
       router.refresh();
+      setIsOpen(true);
       setComment("");
     } catch (error) {
       toast.error("Comment Failed!");

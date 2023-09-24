@@ -21,7 +21,7 @@ const Comment = ({ comment }: { comment: CommentWithUser }) => {
           >
             {comment.user.name}
           </Link>
-          <small className='text-gray-400'>
+          <small className='text-gray-400 text-[12px]'>
             {moment(comment.createdAt).fromNow()}
           </small>
         </div>

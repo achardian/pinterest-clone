@@ -19,6 +19,9 @@ export const GET = async (
       where: {
         pinId: params.id,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         user: true,
       },

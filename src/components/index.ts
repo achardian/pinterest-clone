@@ -10,6 +10,7 @@ import DeleteBtn from "./DeleteBtn";
 import ChevronBtn from "./ChevronBtn";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
+import CommentsList from "./CommentsList";
 
 export {
   Navbar,
@@ -24,4 +25,5 @@ export {
   ChevronBtn,
   CommentForm,
   Comment,
+  CommentsList,
 };
