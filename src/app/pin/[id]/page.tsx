@@ -25,7 +25,7 @@ const PinDetail = async ({ params }: { params: { id: string } }) => {
         </div>
         <div className='relative flex-1 pt-2 lg:pt-8 flex flex-col gap-3'>
           <div className='ml-auto px-5'>
-            <SaveBtn />
+            <SaveBtn saveIds={pin.saveIds} pinId={pin.id} />
           </div>
           <h1 className='text-2xl lg:text-3xl font-bold px-5'>{pin.title}</h1>
           <p className='px-5'>{pin.description}</p>

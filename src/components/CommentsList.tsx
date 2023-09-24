@@ -11,7 +11,9 @@ const CommentsList = ({ comments }: { comments: CommentWithUser[] }) => {
     <div className='px-5 mt-4'>
       <div className='flex items-center gap-2'>
         <h1>
-          {comments.length > 1 ? `${comments.length} Comments` : "1 Comment"}
+          {comments.length > 1
+            ? `${comments.length} Comments`
+            : `${comments.length === 1 ? "1 Comment" : "Comment"}`}
         </h1>
         {comments.length > 0 && <ChevronBtn />}
       </div>
