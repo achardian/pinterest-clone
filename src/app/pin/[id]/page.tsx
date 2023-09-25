@@ -41,7 +41,7 @@ const PinDetail = async ({ params }: { params: { id: string } }) => {
             ))}
           </div>
           <Link
-            href={`/user/${pin.user.id}`}
+            href={`/user/${pin.user.id}?variant=created`}
             className='mt-10 flex gap-3 items-center px-5'
           >
             <Image

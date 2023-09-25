@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer components {
+  .masonry-layout {
+    @apply columns-2 gap-8 space-y-5 md:columns-3 lg:columns-4 xl:columns-5 px-5;
+  }
   .create-input {
     @apply w-full bg-transparent outline-none border-b-2 focus:border-blue-600;
   }

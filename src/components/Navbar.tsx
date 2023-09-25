@@ -58,7 +58,10 @@ const Navbar = () => {
       {session?.user ? (
         <div className='flex'>
           {/* profile */}
-          <div className='p-2 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full'>
+          <Link
+            href={`/user/${session.user.id}?variant=created`}
+            className='p-2 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full'
+          >
             <Image
               src={session.user.image as string}
               alt='user-img'
@@ -66,7 +69,7 @@ const Navbar = () => {
               height={25}
               className='rounded-full'
             />
-          </div>
+          </Link>
           {/* dropdown menu */}
           <DropdownMenu />
         </div>

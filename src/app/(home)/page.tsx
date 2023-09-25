@@ -11,7 +11,7 @@ const Home = async () => {
   const pins: Pin[] = await getPins();
 
   return (
-    <div className='columns-2 gap-8 space-y-5 md:columns-3 lg:columns-4 xl:columns-5 px-5 pb-5 mt-3'>
+    <div className='masonry-layout pb-5 mt-3'>
       {pins && pins.map((pin) => <PinComponent key={pin.id} pin={pin} />)}
     </div>
   );
