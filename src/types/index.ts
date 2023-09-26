@@ -4,7 +4,7 @@ type PinWithUser = Omit<Pin, "pin"> & {
   user: User;
 };
 
-export type CommentWithUser = Omit<Comment, "comment"> & {
+export type CommentWithUser = Omit<Comment, "commentData"> & {
   user: User;
 };
 
