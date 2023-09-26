@@ -22,7 +22,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className='flex items-center gap-2 py-2 px-5 sticky top-0 z-50 bg-white dark:bg-[#040D12]'>
+    <nav className='flex items-center gap-2 py-2 px-5 static lg:sticky top-0 z-50 bg-white dark:bg-[#040D12]'>
       {/* logo */}
       <Link
         href='/'
@@ -53,7 +53,9 @@ const Navbar = () => {
         ))}
       </div>
       {/* search */}
-      <SearchBar />
+      <div className='hidden lg:block flex-1'>
+        <SearchBar />
+      </div>
       <ThemeToggle />
       {session?.user ? (
         <div className='flex'>

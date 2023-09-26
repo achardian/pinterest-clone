@@ -13,7 +13,7 @@ const CreatedPins = ({ createdPins }: { createdPins: Pin[] }) => {
   }
 
   return (
-    <div className='masonry-layout py-3 mt-3'>
+    <div className='masonry-layout py-3 mt-3 mb-12 lg:mb-3'>
       {createdPins.map((pin) => (
         <PinComponent pin={pin} />
       ))}

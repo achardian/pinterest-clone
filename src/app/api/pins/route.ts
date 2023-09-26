@@ -5,7 +5,7 @@ export const GET = async () => {
   try {
     const pins = await prismadb.pin.findMany({
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
 

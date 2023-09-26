@@ -15,7 +15,7 @@ const SearchPage = async ({
   const { query } = searchParams;
   const pins: Pin[] = await getPinsBySearch(query as string);
 
-  if (pins.length === 0) {
+  if (pins.length === 0 && query !== undefined) {
     return (
       <div className='w-full flex justify-center items-center text-center'>
         <h1 className='text-2xl font-bold mt-20'>

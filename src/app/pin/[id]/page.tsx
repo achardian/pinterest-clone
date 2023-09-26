@@ -1,8 +1,11 @@
-import { CommentForm, CommentsList, SaveBtn } from "@/components";
+import { CommentForm, CommentsList, DeleteBtn, SaveBtn } from "@/components";
 import fetchData from "@/lib/fetch-data";
 import { PinData } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { ExternalLink } from "lucide-react";
 
 const getPin = async (id: string) => {
   const data = await fetchData(`/pin/${id}`, "GET", "", "no-cache");
@@ -10,21 +13,33 @@ const getPin = async (id: string) => {
 };
 
 const PinDetail = async ({ params }: { params: { id: string } }) => {
+  const session = await getServerSession(authOptions);
   const { pin, comments }: PinData = await getPin(params.id);
 
   return (
     <div className='w-full h-fit py-5'>
       <div className='w-full h-full bg-white dark:bg-gray-950 md:w-4/5 flex flex-col md:flex-row mx-auto rounded-xl overflow-clip shadow-md'>
-        <div className='flex-1'>
+        <div className='flex-1 relative h-fit group'>
           <Image
             src={pin.imageUrl}
             alt='pin-img'
             width={pin.imageWidth}
             height={pin.imageHeight}
           />
+          <Link
+            href={pin.imageUrl}
+            target='_blank'
+            className='p-3 absolute top-3 left-3 bg-black z-10 rounded-full hidden items-center gap-3 group-hover:flex'
+          >
+            <ExternalLink />
+            Visit image
+          </Link>
         </div>
         <div className='relative flex-1 pt-2 lg:pt-8 flex flex-col gap-3'>
-          <div className='ml-auto px-5'>
+          <div className='ml-auto px-5 flex gap-3'>
+            {pin.user.id === session?.user.id && (
+              <DeleteBtn pinId={pin.id} userId={session.user.id} />
+            )}
             <SaveBtn saveIds={pin.saveIds} pinId={pin.id} />
           </div>
           <h1 className='text-2xl capitalize lg:text-3xl font-bold px-5'>

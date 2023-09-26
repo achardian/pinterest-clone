@@ -1,4 +1,4 @@
-import { AuthModal, DeleteModal, Navbar } from "@/components";
+import { AuthModal, BottomNav, DeleteModal, Navbar } from "@/components";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-white dark:bg-gray-900`}>
         <AuthProvider>
           <ThemeProvider
             attribute='class'
@@ -30,6 +30,7 @@ export default function RootLayout({
           >
             <Navbar />
             {children}
+            <BottomNav />
             <AuthModal />
             <DeleteModal />
             <ToasterProvider />

@@ -101,7 +101,7 @@ const PinBuilder = () => {
 
   return (
     <div className='w-full h-screen bg-gray-200 dark:bg-gray-950 flex items-center justify-center'>
-      <div className='w-full h-fit lg:w-3/5 p-5 bg-white dark:bg-gray-900 rounded-lg flex flex-col lg:flex-row gap-5'>
+      <div className='w-full h-fit lg:w-3/5 py-20 px-3 lg:p-5 bg-white dark:bg-gray-900 rounded-lg flex flex-col lg:flex-row gap-5'>
         <div className='flex-1'>
           <div className='w-full h-[450px] bg-gray-100 dark:bg-gray-800 p-3 rounded-lg'>
             <div className='w-full h-full rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-900 flex items-center justify-center'>

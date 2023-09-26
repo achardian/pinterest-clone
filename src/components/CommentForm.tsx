@@ -57,7 +57,7 @@ const CommentForm = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className='static lg:sticky bottom-0 py-5 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-700 mt-auto px-5 flex flex-col'
+      className='static lg:sticky bottom-0 pt-5 pb-14 lg:py-5 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-700 mt-auto px-5 flex flex-col'
     >
       <div className='mb-3 flex justify-between'>
         <h3>What's your thought?</h3>

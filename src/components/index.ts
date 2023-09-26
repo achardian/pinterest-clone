@@ -12,6 +12,7 @@ import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import CommentsList from "./CommentsList";
 import DeleteModal from "./DeleteModal";
+import BottomNav from "./BottomNav";
 
 export {
   Navbar,
@@ -28,4 +29,5 @@ export {
   Comment,
   CommentsList,
   DeleteModal,
+  BottomNav,
 };
