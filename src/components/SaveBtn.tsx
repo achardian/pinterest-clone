@@ -24,6 +24,8 @@ const SaveBtn = ({ pinId, saveIds }: { pinId: string; saveIds: string[] }) => {
     }
   };
 
+  if (!session?.user) return null;
+
   return (
     <button
       onClick={handleSave}

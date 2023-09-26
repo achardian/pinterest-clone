@@ -25,7 +25,7 @@ const Pin = ({ pin }: { pin: Pin }) => {
       />
       <div className='absolute inset-0 z-20 p-3 bg-black/50 hidden group-hover:flex flex-col justify-between'>
         <div className='flex justify-between items-center'>
-          <DeleteBtn userId={pin.userId} />
+          <DeleteBtn pinId={pin.id} userId={pin.userId} />
           <SaveBtn pinId={pin.id} saveIds={pin.saveIds} />
         </div>
         <div>
@@ -37,7 +37,7 @@ const Pin = ({ pin }: { pin: Pin }) => {
               className='bg-gray-200 dark:bg-gray-900 gap-2 p-2 rounded-full flex items-center w-fit text-sm'
             >
               <ExternalLink width={20} height={20} />
-              {pin.destination?.slice(8, 20)}...
+              visit image
             </Link>
           )}
         </div>

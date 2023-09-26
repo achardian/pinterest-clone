@@ -27,14 +27,16 @@ const PinDetail = async ({ params }: { params: { id: string } }) => {
           <div className='ml-auto px-5'>
             <SaveBtn saveIds={pin.saveIds} pinId={pin.id} />
           </div>
-          <h1 className='text-2xl lg:text-3xl font-bold px-5'>{pin.title}</h1>
-          <p className='px-5'>{pin.description}</p>
+          <h1 className='text-2xl capitalize lg:text-3xl font-bold px-5'>
+            {pin.title}
+          </h1>
+          <p className='px-5 normal-case'>{pin.description}</p>
           <div className='flex items-center gap-3 flex-wrap mt-3 px-5'>
             {pin.tags?.map((tag) => (
               <Link
                 key={tag}
-                href={`/pins?tag=${tag}`}
-                className='px-5 py-2 rounded-full bg-gray-50 dark:bg-gray-800 text-[13px]'
+                href={`/search?query=${tag}`}
+                className='px-5 py-2 rounded-full capitalize bg-gray-50 dark:bg-gray-800 text-[13px]'
               >
                 {tag}
               </Link>

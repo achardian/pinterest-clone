@@ -59,7 +59,9 @@ const PinBuilder = () => {
         const res = await fetch("/api/pin", {
           method: "POST",
           body: JSON.stringify({
-            ...pinData,
+            title: pinData.title.toLowerCase(),
+            description: pinData.description,
+            destination: pinData.destination,
             tags,
             imageUrl,
             imageHeight: imgHeight,
@@ -77,6 +79,14 @@ const PinBuilder = () => {
       toast.error("Something went Wrong, failed to create pin!");
     } finally {
       setIsLoading(false);
+      setPinData({
+        title: "",
+        description: "",
+        destination: "",
+      });
+      setImgUrl("");
+      setTag("");
+      setTags([]);
     }
   };
 
@@ -169,7 +179,7 @@ const PinBuilder = () => {
           <div className='mt-10'>
             <div className='flex flex-wrap gap-2 items-center'>
               {tags.map((tag) => (
-                <div className='flex text-sm items-center gap-2 py-1 px-3 rounded-full text-white bg-red-400'>
+                <div className='flex text-sm capitalize items-center gap-2 py-1 px-3 rounded-full text-white bg-red-400'>
                   {tag}
                   <button
                     onClick={() =>
@@ -192,7 +202,9 @@ const PinBuilder = () => {
             <button
               type='button'
               className='mt-3 text-white bg-red-600 hover:bg-red-500 rounded-full px-3 py-1'
-              onClick={() => setTags((prevTags) => [...prevTags, tag])}
+              onClick={() =>
+                setTags((prevTags) => [...prevTags, tag.toLowerCase()])
+              }
             >
               Add
             </button>

@@ -1,4 +1,4 @@
-import { AuthModal, Navbar } from "@/components";
+import { AuthModal, DeleteModal, Navbar } from "@/components";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -31,6 +31,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <AuthModal />
+            <DeleteModal />
             <ToasterProvider />
           </ThemeProvider>
         </AuthProvider>

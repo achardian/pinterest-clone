@@ -16,7 +16,7 @@ const Comment = ({ comment }: { comment: CommentWithUser }) => {
         />
         <div className='flex flex-col'>
           <Link
-            href={`/user/${comment.user.id}`}
+            href={`/user/${comment.user.id}?variant=created`}
             className='text-[14px] font-semibold'
           >
             {comment.user.name}

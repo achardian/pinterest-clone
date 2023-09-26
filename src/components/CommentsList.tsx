@@ -17,8 +17,8 @@ const CommentsList = ({ comments }: { comments: CommentWithUser[] }) => {
         </h1>
         {comments.length > 0 && <ChevronBtn />}
       </div>
+      {comments.length === 0 && <small>There is no comment yet!</small>}
       <div className={`${isOpen ? "block" : "hidden"}`}>
-        {comments.length === 0 && <small>There is no comment yet!</small>}
         {comments.length > 0 &&
           comments.map((comment) => (
             <Comment key={comment.id} comment={comment} />

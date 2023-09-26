@@ -11,6 +11,7 @@ import ChevronBtn from "./ChevronBtn";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import CommentsList from "./CommentsList";
+import DeleteModal from "./DeleteModal";
 
 export {
   Navbar,
@@ -26,4 +27,5 @@ export {
   CommentForm,
   Comment,
   CommentsList,
+  DeleteModal,
 };

@@ -34,3 +34,22 @@ export const GET = async (
     return NextResponse.json("Something went wrong!", { status: 500 });
   }
 };
+
+export const DELETE = async (
+  req: Request,
+  { params }: { params: { id: string } }
+) => {
+  const pinId = params.id;
+  console.log(pinId);
+  try {
+    await prismadb.pin.delete({
+      where: {
+        id: pinId,
+      },
+    });
+
+    return NextResponse.json("Successfully delete pin!", { status: 201 });
+  } catch (error) {
+    return NextResponse.json("Something went wrong!", { status: 500 });
+  }
+};
