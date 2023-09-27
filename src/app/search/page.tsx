@@ -26,7 +26,7 @@ const SearchPage = async ({
   }
 
   return (
-    <div className='masonry-layout'>
+    <div className='masonry-layout pt-5 pb-20'>
       {pins.map((pin) => (
         <PinComponent key={pin.id} pin={pin} />
       ))}

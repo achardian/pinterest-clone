@@ -15,7 +15,7 @@ const Pin = ({ pin }: { pin: Pin }) => {
       onClick={() => router.push(`/pin/${pin.id}`)}
       className='relative rounded-md overflow-clip group cursor-zoom-in'
     >
-      <div className='absolute bg-gray-100 dark:bg-gray-900 inset-0 z-[-1]'></div>
+      <div className='absolute bg-gray-100 dark:bg-gray-800 inset-0 z-[-1]'></div>
       <Image
         src={pin.imageUrl}
         alt='pin-img'
@@ -34,10 +34,10 @@ const Pin = ({ pin }: { pin: Pin }) => {
               onClick={(e) => e.stopPropagation()}
               href={pin.destination}
               target='_blank'
-              className='bg-gray-200 dark:bg-gray-900 gap-2 p-2 rounded-full flex items-center w-fit text-sm'
+              className='bg-gray-200 dark:bg-gray-900 gap-2 py-2 px-2 lg:px-5 rounded-full flex items-center w-fit text-sm'
             >
-              <ExternalLink width={20} height={20} />
-              visit image
+              <ExternalLink width={18} height={18} />
+              <span className='hidden lg:block'>Visit image</span>
             </Link>
           )}
         </div>

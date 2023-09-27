@@ -8,7 +8,7 @@ const CommentsList = ({ comments }: { comments: CommentWithUser[] }) => {
   const { isOpen } = useOpenCommentStore();
 
   return (
-    <div className='px-5 mt-4'>
+    <div className='px-5 mt-4 mb-12 lg:mb-2'>
       <div className='flex items-center gap-2'>
         <h1>
           {comments.length > 1

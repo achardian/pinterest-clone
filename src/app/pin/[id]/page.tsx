@@ -29,7 +29,7 @@ const PinDetail = async ({ params }: { params: { id: string } }) => {
           <Link
             href={pin.imageUrl}
             target='_blank'
-            className='p-3 absolute top-3 left-3 bg-black z-10 rounded-full hidden items-center gap-3 group-hover:flex'
+            className='p-3 absolute top-3 left-3 bg-black/60 text-white z-10 rounded-full hidden items-center gap-3 group-hover:flex'
           >
             <ExternalLink />
             Visit image

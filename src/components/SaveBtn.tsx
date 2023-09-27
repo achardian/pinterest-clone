@@ -1,5 +1,6 @@
 "use client";
 
+import { Bookmark } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
@@ -29,13 +30,14 @@ const SaveBtn = ({ pinId, saveIds }: { pinId: string; saveIds: string[] }) => {
   return (
     <button
       onClick={handleSave}
-      className={`px-5 py-2 rounded-full ${
+      className={`lg:px-5 px-2 py-2 rounded-full ${
         isSaved
           ? "bg-gray-800 hover:bg-gray-700"
           : "bg-red-600 hover:bg-red-500"
       } text-white`}
     >
-      {isSaved ? "Saved" : "Save"}
+      <p className='hidden lg:block'>{isSaved ? "Saved" : "Save"}</p>
+      <Bookmark className='block lg:hidden' />
     </button>
   );
 };
